@@ -1,0 +1,27 @@
+{
+  "name": "mdwiki-editor",
+  "version": "0.0.1",
+  "authors": [
+    "utensil <utensilcandel@gmail.com>"
+  ],
+  "description": "An editor for MDwiki(https://github.com/Dynalon/mdwiki)",
+  "main": "app://mdwiki-editor/app/index.html",
+  "repository": "https://github.com/utensil/mdwiki-editor.git",
+  "single-instance": true,
+  "window": {
+    "title": "MDWiki Editor",
+    "#icon": "link.png",
+    "#toolbar": false,
+    "frame": true,
+    "position": "center",
+    "#fullscreen": false,
+    "show": true
+  },
+  "webkit": {
+    "plugin": true
+  },
+  "dependencies": {
+    "node-static": "~0.7.3"
+  },
+  "devDependencies": {}
+}

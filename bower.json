@@ -1,0 +1,25 @@
+{
+  "name": "mdwiki-editor",
+  "version": "0.0.1",
+  "homepage": "https://github.com/utensil/mdwiki-editor",
+  "authors": [
+    "utensil <utensilcandel@gmail.com>"
+  ],
+  "description": "An editor for MDwiki(https://github.com/Dynalon/mdwiki)",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "app/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.1",
+    "font-awesome": "~4.0.3",
+    "jquery": "~2.1.0",
+    "marked": "~0.3.2",
+    "ace-builds": "~1.1.3",
+    "ace-snippet-extension": "~0.0.3"
+  }
+}
