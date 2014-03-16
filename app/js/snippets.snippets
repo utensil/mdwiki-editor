@@ -1,0 +1,161 @@
+# Markdown
+
+# Includes octopress (http://octopress.org/) snippets
+
+# http://docs.sublimetext.info/en/latest/extensibility/snippets.html
+
+snippet [
+	[${1:text}](http://${2:address} "${3:title}")
+snippet [*
+	[${1:link}](${2:`@*`} "${3:title}")${4}
+
+snippet [:
+	[${1:id}]: http://${2:url} "${3:title}"
+snippet [:*
+	[${1:id}]: ${2:`@*`} "${3:title}"
+
+snippet ![
+	![${1:alttext}](${2:/images/image.jpg} "${3:title}")
+snippet ![*
+	![${1:alt}](${2:`@*`} "${3:title}")${4}
+
+snippet ![:
+	![${1:id}]: ${2:url} "${3:title}"
+snippet ![:*
+	![${1:id}]: ${2:`@*`} "${3:title}"
+
+snippet bold
+	**${0:$SELECTED_TEXT}**
+snippet italic
+	*${0:$SELECTED_TEXT}*
+snippet link
+	[${1:$SELECTED_TEXT}](${2:url})
+snippet pic
+	![](${1:image} "${2:$SELECTED_TEXT}")
+
+snippet blockquote
+	> $0
+snippet blockquote-selected
+	${SELECTED_TEXT/(.+)/> ${1}/g}
+
+	$0
+snippet blockquote-selected-undo
+	${SELECTED_TEXT/[>]\s+(.+)/${1}/g}
+
+	$0
+
+snippet ul
+	* $0
+snippet ul-selected
+	${SELECTED_TEXT/(.+)/* ${1}/g}
+
+	$0
+snippet ul-selected-undo
+	${SELECTED_TEXT/\*\s+(.+)/${1}/g}
+
+	$0
+
+
+snippet code
+
+	```
+	${0:$SELECTED_TEXT}
+	```
+
+snippet hr
+	$SELECTED_TEXT
+
+	---------------------------
+
+	$0
+
+snippet h1
+	${0:$SELECTED_TEXT}
+	${SELECTED_TEXT/./==/g}
+	$1
+
+snippet h2
+	${0:$SELECTED_TEXT}
+	${SELECTED_TEXT/./--/g}
+	$1
+
+snippet h3
+	### ${0:$SELECTED_TEXT}
+	
+	$1
+
+snippet ===
+regex /^/=+/=*//
+	${PREV_LINE/./==/g}
+	
+	${0}
+snippet ---
+regex /^/-+/-*//
+	${PREV_LINE/./--/g}
+	
+	${0}
+
+snippet ```
+	```
+	${1:code}
+	```
+
+snippet |*1
+	|      $1      |
+	|------------|
+
+snippet |*2
+	|      $1      |      $2      |
+	|------------|------------|
+
+snippet |*3
+	|      $1      |      $2      |      $3      |
+	|------------|------------|------------|
+
+snippet |*4
+	|      $1      |      $2      |      $3      |      $4      |
+	|------------|------------|------------|------------|
+	|            |            |            |            |
+
+snippet |*5
+	|      $1      |      $2      |      $3      |      $4      |      $5      |
+	|------------|------------|------------|------------|------------|
+	|            |            |            |            |            |
+
+snippet |*6
+	|      $1      |      $2      |      $3      |      $4      |      $5      |      $6      |
+	|------------|------------|------------|------------|------------|------------|
+	|            |            |            |            |            |            |
+
+snippet |*7
+	|      $1      |      $2      |      $3      |      $4      |      $5      |      $6      |      $7      |
+	|------------|------------|------------|------------|------------|------------|------------|
+	|            |            |            |            |            |            |            |
+
+
+snippet |*8
+	|      $1      |      $2      |      $3      |      $4      |      $5      |      $6      |      $7      |      $8      |
+	|------------|------------|------------|------------|------------|------------|------------|------------|
+	|            |            |            |            |            |            |            |            |
+
+snippet |*9
+	|      $1      |      $2      |      $3      |      $4      |      $5      |      $6      |      $7      |      $8      |      $9      |
+	|------------|------------|------------|------------|------------|------------|------------|------------|------------|
+	|            |            |            |            |            |            |            |            |            |
+
+
+snippet |*10
+	|      $1      |      $2      |      $3      |      $4      |      $5      |      $6      |      $7      |      $8      |      $9      |     $10     |
+	|------------|------------|------------|------------|------------|------------|------------|------------|------------|-------------|
+	|            |            |            |            |            |            |            |            |            |             |
+
+snippet |-
+	${PREV_LINE/[^|]/-/g}
+
+snippet |
+regex /^/\|/$/
+	${PREV_LINE/[^|]/ /g}
+
+regex /^/\* .+/$/
+	$CURRENT_LINE
+	* ${1}
