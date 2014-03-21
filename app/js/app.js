@@ -243,6 +243,7 @@ $(function () {
       $('#img-paste-dialog').hide();
 
       ace_session.setValue('');
+      $('#editor-preview').empty();
 
       fs.readFile(markdown_src, function (err, content) {
           if(err)
