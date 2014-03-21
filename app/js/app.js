@@ -3,16 +3,22 @@ var path = require('path');
 var static = require('node-static');
 var fs = require('fs');
 var child_process = require('child_process');
+var shelljs = require('shelljs');
+var minimatch = require("minimatch");
 
 // Get the current window
 var win = gui.Window.get();
 
 var wiki_root_html = localStorage.getItem('wiki_root_html');
 
-if(wiki_root_html == null)
+if(wiki_root_html == null || !fs.existsSync(wiki_root_html))
 {
   // fallback to a sane default: a built-in MDWiki.html with a introductory index.md
   wiki_root_html = path.join(process.cwd(), './app/example/mdwiki.html');
+}
+else
+{
+  $('#main-tabs li a[href="#tab-preview"]').click();
 }
 
 var wiki_root = path.dirname(wiki_root_html);
@@ -37,7 +43,6 @@ Dropzone.options.wikiRoot = {
       $('#wiki-preview').
         attr('src', get_wiki_root_html() + '#!index.md'); 
 
-      $('#main-tabs li').removeClass('disabled');
       $('#main-tabs li a[href="#tab-preview"]').click();
 
       console.log(file_path);
@@ -354,7 +359,7 @@ $(function () {
   ace_session.setMode("ace/mode/markdown");
   ace_session.setTabSize(2);
   ace_session.setUseSoftTabs(true);
-  ace_session.setWrapLimitRange(80, 100);
+  ace_session.setWrapLimitRange(80, 80);
   ace_session.setUseWrapMode(true);
 
   var ace_snippetManager = ace.require("ace/snippets").snippetManager;
@@ -1114,6 +1119,94 @@ $(function () {
     {
       ensureClose();
     }  
+  });
+
+
+  /*
+    Button "Search"
+   */  
+  $('#search').click(function (e) {
+    var search_target = new RegExp($('#search-target').val());
+
+    if(search_target)
+    {
+      var files = path.join(get_wiki_root(), './*.md');
+      var allfiles = shelljs.ls('-R', get_wiki_root());
+      var mdfiles = allfiles.filter(minimatch.filter('**/*.md'));
+
+      $('#search-result').empty();
+
+      mdfiles.forEach(function (file, i) {
+        var full_path = path.join(get_wiki_root(), './', file);
+
+        fs.readFile(full_path, { 'encoding' : 'utf-8' }, function (err, data) {
+          if(err)
+          {
+            throw err;
+          }
+
+          var lines = data.split(/[\r\n]/);
+
+          var found = 0;
+
+          var file_match_panel = $('<div class="panel panel-info"></div>');
+
+          var file_match_panel_heading = $('<div class="panel-heading"></div>').
+            text(path.relative(get_wiki_root(), full_path));
+
+          file_match_panel_heading.click(function (e) {
+            if(file != 'navigation.md')
+            {
+              $('#wiki-preview').attr('src', get_wiki_root_html() + '#!' + file);
+              $('#main-tabs li a[href="#tab-preview"]').click();
+            }            
+          });
+
+          file_match_panel.append(file_match_panel_heading);
+
+          var file_match_list = $('<ul class="list-group"></ul>');
+
+          file_match_panel.append(file_match_list);
+
+          var file_match_item_tmpl = $('<li class="list-group-item"></li>');
+
+          var should_break = false;
+
+          lines.forEach(function (line, line_num) {
+
+            if(line.match(search_target))
+            {
+              found += 1; 
+
+              if(should_break)
+              {
+                return;
+              }
+
+              if(found < 5)
+              {
+                file_match_list.append(
+                  file_match_item_tmpl.clone().
+                    text(line)); 
+              }
+              else
+              {
+                file_match_list.append(
+                  file_match_item_tmpl.clone().
+                    text('...'));
+                should_break = true;
+              }            
+            }
+          });
+
+          if(found > 0)
+          {
+            $('.panel-heading', file_match_panel).append($(' <span class="badge"></span>').text(found));
+            $('#search-result').append(file_match_panel);
+          }
+        });
+      });
+    }
   });
 
 });

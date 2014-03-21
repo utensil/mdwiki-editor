@@ -19,12 +19,23 @@
     }
 
     #wiki-preview {
-      width:100%;
-      margin-top: 1em;
+      width:100%;      
+    }
+
+    #tab-preview, #tab-edit, #tab-search, #tab-set-wiki-root, #search-result {
+      padding-top: 1em;
     }
 
     #editor-and-preview {
       overflow-y: scroll;
+    }
+
+    #search-result .panel-heading:hover {
+      cursor: pointer;
+    }
+
+    .panel-heading .badge {
+      float: right;
     }
   </style>
 </head>
@@ -38,7 +49,7 @@
               <button type="button" id="refresh" class="btn btn-primary btn-lg" data-toggle="tooltip" title="Refresh current wiki"><i class="fa fa-fw fa-refresh"></i>Refresh</button>
               <button type="button" id="edit-external" class="btn btn-default btn-lg" data-toggle="tooltip" title="Edit current wiki with associated external editor"><i class="fa fa-fw fa-external-link"></i>Edit with...</button>
               <button type="button" id="locate" class="btn btn-default btn-lg" data-toggle="tooltip" title="Open where current wiki source file resides" ><i class="fa fa-fw fa-folder-open"></i>Folder</button>
-              <button type="button" id="server" class="btn btn-default btn-lg" data-toggle="tooltip" title="To debug in external browsers"><i class="fa fa-fw fa-play"></i>Web Server</button>
+              <button type="button" id="server" class="btn btn-default btn-lg" data-toggle="tooltip" title="To debug in external browsers"><i class="fa fa-fw fa-play"></i>Start Web Server</button>
             </div>
             <label for="server_port" class="">Port:</label>
             <input type="text" class="form-control" id="server_port" placeholder="8080">
@@ -47,11 +58,14 @@
       </div>
     </div>    
     <ul class="nav nav-tabs" id="main-tabs">
-      <li class="disabled" >
+      <li class="" >
         <a data-toggle="tab" href="#tab-preview">Explore</a>
       </li>
-      <li class="disabled">
+      <li class="">
         <a data-toggle="tab" href="#tab-edit">Edit</a>
+      </li>
+      <li class="">
+        <a data-toggle="tab" href="#tab-search">Search</a>
       </li>
       <li class="active">
         <a data-toggle="tab" href="#tab-set-wiki-root">Change wiki root</a>
@@ -66,7 +80,7 @@
       </div>
       <div class="tab-pane" id="tab-edit">
         <div class="row">
-          <div class="col-md-7" style="padding-top: 0.5em">            
+          <div class="col-md-7">            
             <div id="editor-status">
               <div id="tab-edit-alert" class="alert alert-danger">
                 <div id="tab-edit-alert-content">
@@ -102,6 +116,25 @@
             <div id="editor-preview"></div>
           </div>
         </div>                        
+      </div>
+      <div class="tab-pane" id="tab-search">
+        <div class="row">
+          <div class="col-md-6">
+            <form class="form-inline" role="form" action="#">
+              <div class="input-group">
+                <input type="text" class="form-control" id='search-target'>
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="submit" id="search">Go!</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="search-result"></div>
+          </div>
+        </div>
       </div>
       <div class="tab-pane active" id="tab-set-wiki-root">
         <div class="row">
