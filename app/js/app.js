@@ -926,7 +926,7 @@ $(function () {
 
     image_file_select.val(path.join(wiki_image_dir, default_img_filename));
 
-    $('#image-save').click(function (e) {
+    $('#image-save').off('click').on('click', function (e) {
       try
       {
         var saveas_path = image_file_select.val();
@@ -947,11 +947,13 @@ $(function () {
         console.log(saveas_path);
 
         var reader = new FileReader();
-        reader.onload = function(evt) {    
+        reader.onload = function(evt) {
+
           fs.writeFile(saveas_path, reader.result, function (err) {
             if(err)
             {
               console.error(err);
+              return;
             }
             
             $('#img-paste-dialog').hide();
@@ -975,7 +977,7 @@ $(function () {
       }
       catch(err)
       {
-        console.log(err);
+        console.error(err);
       }      
     });
  
