@@ -916,33 +916,28 @@ $(function () {
     var wiki_src = get_current_wiki_source();
     var wiki_image_dir = path.dirname(wiki_src);
 
-    if(fs.existsSync(path.join(wiki_image_dir, 'img')))
-    {
-      wiki_image_dir = path.join(wiki_image_dir, 'img');
-    }
+    wiki_image_dir = path.join(wiki_image_dir, 'img');
 
-    image_file_select.attr('nwworkingdir', wiki_image_dir);
-    image_file_select.attr('nwsaveas', 
-      path.basename(wiki_src, '.md') + '-' + Date.now() + '.png');
+    // image_file_select.attr('nwworkingdir', wiki_image_dir);
+    // image_file_select.attr('nwsaveas', 
+    //   path.basename(wiki_src, '.md') + '-' + Date.now() + '.png');
+    //   
+    var default_img_filename = path.basename(wiki_src, '.md') + '-' + Date.now() + '.png';
 
-    //FIXME!!! this should be simply a default text input
+    image_file_select.val(path.join(wiki_image_dir, default_img_filename));
+
     $('#image-save').click(function (e) {
       try
       {
-        var saveas_path = image_file_select[0].files[0].path;
-        console.log(saveas_path);
+        var saveas_path = image_file_select.val();
 
         var saveas_dir = path.dirname(saveas_path);
+
         console.log(wiki_image_dir, saveas_dir);
 
-        if(saveas_dir.toUpperCase() == wiki_image_dir.toUpperCase() &&
-            !/img[\/\\]?$/.test(saveas_dir))
+        if(!fs.existsSync(saveas_dir))
         {
-          saveas_dir = path.join(saveas_dir, 'img');
-          if(!fs.existsSync(saveas_dir))
-          {
-            fs.mkdirSync(saveas_dir);
-          }
+          fs.mkdirSync(saveas_dir);
         }
 
         var saveas_filename = path.basename(saveas_path);
@@ -958,9 +953,6 @@ $(function () {
             {
               console.error(err);
             }
-
-            //trigger_snippet('pic');
-            //
             
             $('#img-paste-dialog').hide();
 
@@ -986,12 +978,7 @@ $(function () {
         console.log(err);
       }      
     });
-
-
-    // img.css({
-    //   backgroundImage: "url(" + dataURL + ")"
-    // }).data({'width':w, 'height':h});
-    // 
+ 
     $('#img-paste-dialog').show();
   });
 
@@ -1127,7 +1114,15 @@ $(function () {
     Button "Search"
    */  
   $('#search').click(function (e) {
-    var search_target = new RegExp($('#search-target').val());
+
+    var search_target = $('#search-target').val();
+
+    if(!search_target)
+    {
+      return;
+    }
+
+    search_target = new RegExp(search_target);
 
     if(search_target)
     {
