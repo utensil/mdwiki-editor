@@ -25,5 +25,9 @@
     "shelljs": "~0.2.6",
     "minimatch": "~0.2.14"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-coffeelint": "0.0.8"
+  }
 }
