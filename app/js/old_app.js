@@ -81,7 +81,7 @@ var get_proper_height = function () {
 /*
 
   @param id: the id of the DOM element to create the toolbar in  
-  @param buttons: definition object for buttons, alvailable options are:
+  @param buttons: definition object for buttons, available options are:
                   *  id: the internal id of button(will be prefixed)
                   *  tip: string or function of context
                   *  label: string or function of context
