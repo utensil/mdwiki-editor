@@ -19,8 +19,18 @@ Installation
 npm install
 npm install -g bower
 bower install
+#build
+grunt
 # run with `node-webkit`
 nw .
+```
+
+Run tests
+---------------
+
+```
+npm install jasmine-node -g
+jasmine-node --coffee spec/
 ```
 
 License
