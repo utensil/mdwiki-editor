@@ -14,3 +14,4 @@ results
 npm-debug.log
 node_modules
 app/lib
+app/js/main/*.js
