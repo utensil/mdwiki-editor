@@ -6,6 +6,8 @@ An editor for MDwiki(https://github.com/Dynalon/mdwiki)
 Development Status
 ----------------------
 
+ [![Build Status](https://travis-ci.org/utensil/mdwiki-editor.png?branch=master)](https://travis-ci.org/utensil/mdwiki-editor)
+
 Currently works. But without proper organization of code, without tests and documentation. Planning to refactor soon.
 
 Installation
