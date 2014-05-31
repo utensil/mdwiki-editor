@@ -16,7 +16,7 @@ class ToolbarView extends View
     @toolbar_id = "#{id}-barbody"
     @div id: id, =>
       @toolbar = @create_toolbar(@toolbar_id)
-      
+
       toolbar_group = @create_toolbar_group()
       for def in buttons
         if def.split
@@ -48,7 +48,7 @@ class ToolbarView extends View
         else if typeof def.label == 'string'
           button.html(def.label)
     
-        button.click = (e) ->
+        button.click (e) ->
           $this = $(this)
           context = def.context
     
@@ -68,11 +68,12 @@ class ToolbarView extends View
           css(
             'margin-top': '0.5em',
             'margin-bottom': '0.5em'
-          ).
-          tooltip(
-            container: 'body',
-            placement: 'top auto'
           )
+          # .
+          # tooltip(
+          #   container: 'body',
+          #   placement: 'top auto'
+          # )
 
   @create_toolbar: (toolbar_id)->
     $$ ->
