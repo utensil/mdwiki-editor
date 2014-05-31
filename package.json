@@ -6,6 +6,9 @@
   ],
   "description": "An editor for MDwiki(https://github.com/Dynalon/mdwiki)",
   "main": "app://mdwiki-editor/app/index.html",
+  "scripts": {
+    "test": "jasmine-node --coffee spec/"
+  },
   "repository": "https://github.com/utensil/mdwiki-editor.git",
   "single-instance": true,
   "window": {

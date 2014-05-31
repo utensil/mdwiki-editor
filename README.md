@@ -20,6 +20,7 @@ npm install
 npm install -g bower
 bower install
 #build
+npm install -g grunt-cli
 grunt
 # run with `node-webkit`
 nw .
@@ -29,7 +30,7 @@ Run tests
 ---------------
 
 ```
-npm install jasmine-node -g
+npm install -g jasmine-node
 jasmine-node --coffee spec/
 ```
 
