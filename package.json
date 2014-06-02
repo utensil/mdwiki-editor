@@ -27,7 +27,8 @@
     "node-static": "~0.7.3",
     "shelljs": "~0.2.6",
     "minimatch": "~0.2.14",
-    "space-pen": "~3.2.0"
+    "space-pen": "~3.2.0",
+    "jquery": "~2.1.1"
   },
   "devDependencies": {
     "grunt": "^0.4.4",

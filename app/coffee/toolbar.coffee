@@ -1,3 +1,4 @@
+$ = require 'jquery'
 {View, $$} = require 'space-pen'
 
 module.exports =
@@ -18,6 +19,7 @@ class ToolbarView extends View
       @toolbar = @create_toolbar(@toolbar_id)
 
       toolbar_group = @create_toolbar_group()
+
       for def in buttons
         if def.split
           @toolbar.append toolbar_group
@@ -34,6 +36,8 @@ class ToolbarView extends View
         def.context = def.context || {}
         def.context.toolbar_group = toolbar_group
         def.context.button_id = button_id
+
+        default_context = default_context || {}
 
         for key, value of default_context
           def.context[key] = value
@@ -54,7 +58,7 @@ class ToolbarView extends View
     
           if typeof def.label == 'function'
             $this.html(def.label(def.context))
-    
+
           if typeof def.click == 'function'
             return def.click(e, $this, context)
     
@@ -69,6 +73,7 @@ class ToolbarView extends View
             'margin-top': '0.5em',
             'margin-bottom': '0.5em'
           )
+          # TODO add back tooltip functionality
           # .
           # tooltip(
           #   container: 'body',
